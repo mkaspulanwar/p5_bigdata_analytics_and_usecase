@@ -175,12 +175,47 @@ Sistem ini dirancang untuk mendukung keputusan cepat berbasis data:
 - Alert membantu mendeteksi kondisi kritis (misalnya lonjakan trafik/fare tinggi).
 - Dashboard menjadi antarmuka keputusan untuk tim operasional/manajemen.
 
-## Dokumentasi Visual
-Contoh hasil implementasi tersedia di folder `screenshots/`, seperti:
-- `spark_streaming.png`
-- `dashboard1.png`, `dashboard2.png`, `dashboard3.png`, `dashboard4.png`
-- `data_serving.png`
-- `generator_berjalan.png`
+## Bukti Screenshots
+
+<table>
+<tr>
+<td align="center"><b>Struktur Project</b></td>
+<td align="center"><b>Generator Transaksi</b></td>
+</tr>
+<tr>
+<td><img src="screenshots/struktur_project.png"/></td>
+<td><img src="screenshots/generator_berjalan.png"/></td>
+</tr>
+
+<tr>
+<td align="center"><b>Spark Streaming</b></td>
+<td align="center"><b>Folder data/serving</b></td>
+</tr>
+<tr>
+<td><img src="screenshots/spark_streaming.png"/></td>
+<td><img src="screenshots/data_serving.png"/></td>
+</tr>
+
+<tr>
+<td align="center"><b>Dashboard Realtime 1</b></td>
+<td align="center"><b>Dashboard Realtime 2</b></td>
+</tr>
+<tr>
+<td><img src="screenshots/dashboard1.png"/></td>
+<td><img src="screenshots/dashboard2.png"/></td>
+</tr>
+
+<tr>
+<td align="center"><b>Dashboard Realtime 3</b></td>
+<td align="center"><b>Dashboard Realtime 4</b></td>
+</tr>
+<tr>
+<td><img src="screenshots/dashboard3.png"/></td>
+<td><img src="screenshots/dashboard4.png"/></td>
+</tr>
+</table>
+
+---
 
 ## Troubleshooting Singkat
 - Jika Spark gagal start, cek Java:
@@ -192,6 +227,7 @@ java -version
 
 ---
 Praktikum ini menunjukkan implementasi Big Data Analytics yang tidak hanya melakukan pemrosesan data, tetapi juga menghadirkan insight operasional untuk pengambilan keputusan (decision-oriented).
+
 
 
 
