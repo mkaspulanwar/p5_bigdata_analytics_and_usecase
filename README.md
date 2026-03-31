@@ -37,36 +37,51 @@ flowchart LR
 ```
 
 ## Struktur Project
-```text
+```bash
 bigdata-project/
-|- scripts/
-|  |- batch_pipeline_enterprise.py
-|  |- analytics_layer.py
-|  |- streaming_layer.py
-|  |- transaction_generator.py
-|  |- transportation/
-|     |- trip_generator.py
-|     |- streaming_trip_layer.py
-|- dashboard/
-|  |- dashboard_streamlit.py
-|  |- dashboard_transportation.py
-|- analytics/
-|  |- transportation_analytics.py
-|- alerts/
-|  |- transportation_alert.py
-|- data/
-|  |- raw/ecommerce_raw.csv
-|  |- clean/
-|  |- curated/
-|  |- serving/
-|  |- checkpoints/
-|- stream_data/
-|  |- transportation/
-|- logs/
-|- screenshots/
-|- README.md
+├── .venv/                                 # Virtual environment lokal
+├── alerts/                                # Modul alert untuk use case transportation
+│   ├── __init__.py
+│   └── transportation_alert.py            # Rule-based alert (traffic/fare)
+├── analytics/                             # Modul analytics untuk transportation
+│   ├── __init__.py
+│   └── transportation_analytics.py        # KPI, trend, anomaly detection
+├── dashboard/                             # Aplikasi dashboard Streamlit
+│   ├── dashboard_streamlit.py             # Dashboard real-time e-commerce
+│   └── dashboard_transportation.py        # Dashboard decision-oriented transportation
+├── data/
+│   ├── checkpoints/                       # Spark streaming checkpoint
+│   │   └── transportation/
+│   ├── clean/                             # Data hasil cleaning (parquet/partitioned)
+│   ├── curated/                           # Data agregasi bisnis
+│   ├── raw/
+│   │   └── ecommerce_raw.csv              # Dataset mentah utama batch
+│   └── serving/                           # Data siap konsumsi dashboard
+│       ├── avg_transaction/
+│       ├── category_revenue/
+│       ├── stream/                        # Output streaming e-commerce
+│       ├── top_products/
+│       ├── total_revenue/
+│       └── transportation/                # Output streaming transportation
+├── logs/
+│   ├── batch_pipeline.log                 # Log proses batch pipeline
+│   └── stream_checkpoint/                 # Checkpoint streaming e-commerce
+├── screenshots/                           # Screenshot dokumentasi hasil praktikum
+├── scripts/                               # Pipeline utama praktikum
+│   ├── analytics_layer.py                 # Analytics + serving layer (e-commerce)
+│   ├── batch_pipeline_enterprise.py       # Batch processing pipeline
+│   ├── streaming_layer.py                 # Streaming ingestion e-commerce
+│   ├── transaction_generator.py           # Generator transaksi e-commerce
+│   └── transportation/
+│       ├── streaming_trip_layer.py       # Streaming ingestion transportation
+│       └── trip_generator.py              # Generator trip transportation
+├── stream_data/                           # Input simulasi data streaming
+│   └── transportation/
+├── .gitignore
+├── CONTRIBUTING.md
+├── LICENSE
+└── README.md
 ```
-
 ## Setup Environment
 ### 1) Prasyarat
 - Python 3.10+ (disarankan 3.12)
@@ -168,4 +183,7 @@ java -version
 
 ---
 Praktikum ini menunjukkan implementasi Big Data Analytics yang tidak hanya melakukan pemrosesan data, tetapi juga menghadirkan insight operasional untuk pengambilan keputusan (decision-oriented).
+
+
+
 
