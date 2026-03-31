@@ -18,8 +18,8 @@ while True:
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
     with open(f"{OUTPUT_PATH}/trip_{i}.json", "w") as f:
-    json.dump(data, f)
+        json.dump(data, f)
 
-print("Generated Trip:", data)
-i += 1
-time.sleep(3)
+    print("Generated Trip:", data)
+    i += 1
+    time.sleep(3)

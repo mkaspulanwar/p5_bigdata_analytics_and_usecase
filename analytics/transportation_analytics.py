@@ -10,14 +10,14 @@ def load_data(path):
 
     files = [f for f in os.listdir(path) if f.endswith(".parquet")]
     if not files:
-    return pd.DataFrame()
+        return pd.DataFrame()
 
-df = pd.concat(
-    [pd.read_parquet(os.path.join(path, f)) for f in files],
-    ignore_index=True
-)
+    df = pd.concat(
+        [pd.read_parquet(os.path.join(path, f)) for f in files],
+        ignore_index=True
+    )
 
-return df
+    return df
 
 # =========================
 # PREPROCESS
