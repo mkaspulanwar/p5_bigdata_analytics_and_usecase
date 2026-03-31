@@ -1,233 +1,171 @@
-# PRAKTIKUM 4 - STREAMING PROCESSING & REAL - TIME DASHBOARD
+﻿# Praktikum Week 5 : Big Data Analytics & Use Case (Decision-Oriented System)
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Language-Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/Engine-PySpark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white" />
-  <img src="https://img.shields.io/badge/Processing-Structured%20Streaming-FDEE21?style=for-the-badge&logo=apachespark&logoColor=black" />
-  <img src="https://img.shields.io/badge/Dashboard-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" />
-  <img src="https://img.shields.io/badge/Analysis-Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" />
-  <img src="https://img.shields.io/badge/Storage-Parquet-0A9EDC?style=for-the-badge" />
-</p>
+![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
+![Apache Spark](https://img.shields.io/badge/Apache%20Spark-PySpark-E25A1C?logo=apachespark&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?logo=streamlit&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-Analytics-150458?logo=pandas&logoColor=white)
+![Parquet](https://img.shields.io/badge/Format-Parquet-0A9EDC)
+![Big Data](https://img.shields.io/badge/Domain-Big%20Data%20Analytics-2E7D32)
 
-<p align="center">
-  Repository praktikum Teknologi Big Data yang berfokus pada implementasi <b>streaming processing</b> dan <b>real-time dashboard</b> menggunakan <b>Spark Structured Streaming</b> dan <b>Streamlit</b>.
-</p>
+## Tentang Praktikum
+Praktikum ini membangun **Decision-Oriented Big Data System** yang menggabungkan:
+- **Batch pipeline** untuk pemrosesan data historis e-commerce.
+- **Streaming pipeline** untuk data real-time.
+- **Analytics + serving layer** untuk menghasilkan KPI bisnis.
+- **Dashboard interaktif** untuk monitoring dan pengambilan keputusan.
 
----
+Implementasi di project ini mencakup 2 use case:
+1. **E-Commerce Analytics** (batch + streaming + dashboard KPI).
+2. **Smart Transportation Analytics** (streaming trip, alert, dan dashboard real-time).
 
-## Overview
+## Tujuan Praktikum
+Tujuan utama praktikum Week 5 ini:
+- Memahami alur **end-to-end data pipeline** dari raw data hingga visualisasi.
+- Menerapkan konsep **decision-oriented system** berbasis KPI dan alert.
+- Menggunakan **Apache Spark (PySpark)** untuk batch dan structured streaming.
+- Menyajikan insight operasional melalui **dashboard Streamlit**.
 
-Praktikum ini bertujuan untuk membangun alur pemrosesan data modern berbasis **Big Data** dengan pendekatan **streaming**. Data diproses secara berkelanjutan menggunakan **Spark Structured Streaming**, kemudian disimpan ke layer penyajian dalam format **Parquet**, dan akhirnya divisualisasikan melalui **dashboard real-time** menggunakan **Streamlit**.
+## Arsitektur Singkat
+```mermaid
+flowchart LR
+    A["Raw Data (CSV/JSON)"] --> B["Ingestion Layer"]
+    B --> C["Processing Layer (PySpark Batch/Streaming)"]
+    C --> D["Serving Layer (Parquet/CSV)"]
+    D --> E["Analytics & Alerts"]
+    E --> F["Streamlit Dashboard"]
+    F --> G["Decision Support"]
+```
 
-Repository ini menunjukkan bagaimana sebuah pipeline data sederhana dapat digunakan untuk:
-
-- membaca aliran data secara kontinu,
-- melakukan pemrosesan streaming,
-- menyimpan hasil ke serving layer,
-- dan menampilkan insight secara interaktif melalui dashboard.
-
-Dengan kata lain, praktikum ini mensimulasikan workflow dasar yang umum digunakan pada sistem analitik modern.
-
----
-
-## Tim Developer
-
-| Peran | Nama | NIM | Profil GitHub |
-| :--- | :--- | :--- | :--- |
-| **Pengembang Proyek** | M. Kaspul Anwar | 230104040212 | [![](https://img.shields.io/badge/GitHub-M.KaspulAnwar-181717?style=flat&logo=github)](https://github.com/mkaspulanwar) |
-| **Dosen Pengampu** | Muhayat, M. IT | - | [![](https://img.shields.io/badge/GitHub-Muhayat,M.IT-181717?style=flat&logo=github)](https://github.com/muhayat-lab) |
-
----
-
-## Key Features
-
-- **Streaming Processing** dengan Spark Structured Streaming
-- **Real-Time Analytics Dashboard** menggunakan Streamlit
-- **Serving Layer** berbasis file output terstruktur
-- **Data Storage** menggunakan format Parquet
-- **Visualisasi Interaktif** untuk insight data secara langsung
-- **Pipeline Sederhana namun Relevan** untuk memahami alur kerja Big Data end-to-end
-
----
-
-## Project Structure
-
-```bash
+## Struktur Project
+```text
 bigdata-project/
-├── .venv/                        # Virtual environment
-├── dashboard/                    # Dashboard application
-│   └── dashboard_streamlit.py    # Streamlit dashboard for real-time monitoring
-├── data/
-│   ├── clean/                    # Cleaned data
-│   ├── curated/                  # Curated/processed datasets
-│   ├── raw/                      # Raw input data
-│   ├── serving/                  # Output data for dashboard consumption
-│   │   ├── avg_transaction/      # Average transaction results
-│   │   ├── category_revenue/     # Revenue by category
-│   │   ├── stream/               # Streaming output data
-│   │   ├── top_products/         # Top-selling products
-│   │   └── total_revenue/        # Total revenue metrics
-│   └── ecommerce_raw.csv         # Main raw dataset
-├── logs/
-│   ├── stream_checkpoint/              # Streaming checkpoint files
-│   └── batch_pipeline.log              # Log file for batch pipeline
-├── screenshots/                        # Project screenshots for documentation
-├── scripts/
-│   ├── analytics_layer.py              # Analytics and aggregation logic
-│   ├── batch_pipeline_enterprise.py    # Batch processing pipeline
-│   ├── streaming_layer.py              # Streaming ingestion and processing
-│   └── transaction_generator.py        # Transaction data generator
-├── stream_data/                        # Streaming input simulation data
-├── .gitignore
-├── CONTRIBUTING.md
-├── LICENSE
-└── README.md
+|- scripts/
+|  |- batch_pipeline_enterprise.py
+|  |- analytics_layer.py
+|  |- streaming_layer.py
+|  |- transaction_generator.py
+|  |- transportation/
+|     |- trip_generator.py
+|     |- streaming_trip_layer.py
+|- dashboard/
+|  |- dashboard_streamlit.py
+|  |- dashboard_transportation.py
+|- analytics/
+|  |- transportation_analytics.py
+|- alerts/
+|  |- transportation_alert.py
+|- data/
+|  |- raw/ecommerce_raw.csv
+|  |- clean/
+|  |- curated/
+|  |- serving/
+|  |- checkpoints/
+|- stream_data/
+|  |- transportation/
+|- logs/
+|- screenshots/
+|- README.md
 ```
 
-## Bukti Screenshots
+## Setup Environment
+### 1) Prasyarat
+- Python 3.10+ (disarankan 3.12)
+- Java 8/11+ (dibutuhkan Spark)
+- `pip` dan virtual environment
 
-
-<table>
-<tr>
-<td align="center"><b>Struktur Project</b></td>
-<td align="center"><b>Generator Transaksi</b></td>
-</tr>
-<tr>
-<td><img src="screenshots/struktur_project.png"/></td>
-<td><img src="screenshots/transaction_generator.png"/></td>
-</tr>
-
-<tr>
-<td align="center"><b>Spark Streaming</b></td>
-<td align="center"><b>Folder data/serving/stream</b></td>
-</tr>
-<tr>
-<td><img src="screenshots/spark_streaming.png"/></td>
-<td><img src="screenshots/data_serving_stream.png"/></td>
-</tr>
-
-<tr>
-<td align="center"><b>Dashboard Realtime</b></td>
-<td align="center"><b>Dashboard Realtime</b></td>
-</tr>
-<tr>
-<td><img src="screenshots/dashboard_realtime1.png"/></td>
-<td><img src="screenshots/dashboard_realtime2.png"/></td>
-</tr>
-</table>
-
----
-
-## Workflow Architecture
-
-Secara umum, alur kerja pada praktikum ini adalah sebagai berikut:
-
-1. **Data streaming** dibaca secara kontinu.
-2. **Spark Structured Streaming** memproses data yang masuk.
-3. Hasil pemrosesan disimpan ke **serving layer**.
-4. **Dashboard Streamlit** membaca data dari serving layer.
-5. Insight ditampilkan kepada pengguna secara **real-time**.
-
-## How It Works
-
-### 1. Streaming Layer
-
-Layer ini bertugas menangani data yang masuk secara terus-menerus. Dalam praktikum ini, **Spark Structured Streaming** digunakan untuk membaca dan memproses data streaming secara efisien.
-
-### 2. Processing Layer
-
-Data yang masuk kemudian diolah untuk menghasilkan metrik atau agregasi tertentu, misalnya:
-
-- **Total Revenue**
-- **Top Products**
-- **Category Revenue**
-- **Average Transaction**
-
-### 3. Serving Layer
-
-Hasil olahan disimpan ke direktori **serving** dalam format yang mudah dibaca ulang oleh dashboard, seperti **Parquet**.
-
-### 4. Visualization Layer
-
-Dashboard **Streamlit** mengambil data dari serving layer dan menampilkannya dalam bentuk visual yang interaktif agar insight dapat dipahami dengan cepat.
-
-## Installation
-
-### 1. Clone Repository
-
-```bash
-git clone <url-repository>
-cd bigdata-project
-```
-
-### 2. Aktifkan Virtual Environment
-
-Jika environment sudah tersedia:
-
-```bash
-source .venv/bin/activate
-```
-
-Jika belum ada, buat terlebih dahulu:
-
+### 2) Buat dan aktifkan virtual environment
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install Dependencies
-
-```bash
-pip install -r requirements.txt
+Untuk PowerShell:
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
 ```
 
-## Running the Project
-
-### Menjalankan Pipeline
-
-Untuk menjalankan pipeline secara lengkap, gunakan **3 terminal** yang berjalan secara bersamaan.
-
-#### Terminal 1 — Spark Streaming
-
+### 3) Install dependency
 ```bash
-spark-submit scripts/streaming_layer.py
+pip install pyspark streamlit pandas pyarrow
 ```
 
-Terminal ini bertugas menjalankan proses **Spark Structured Streaming** untuk membaca dan memproses data streaming secara kontinu.
+## Cara Menjalankan
+Gunakan beberapa terminal terpisah untuk komponen streaming.
 
-#### Terminal 2 — Transaction Generator
-
+### A. Use Case 1: E-Commerce (Batch + Streaming)
+1. Jalankan batch pipeline (raw -> clean/curated):
 ```bash
-python3 scripts/transaction_generator.py
+python scripts/batch_pipeline_enterprise.py
+```
+2. Jalankan analytics layer (serving KPI):
+```bash
+python scripts/analytics_layer.py
+```
+3. Jalankan generator data transaksi real-time:
+```bash
+python scripts/transaction_generator.py
+```
+4. Jalankan Spark streaming consumer:
+```bash
+python scripts/streaming_layer.py
+```
+5. Jalankan dashboard e-commerce:
+```bash
+streamlit run dashboard/dashboard_streamlit.py
 ```
 
-Terminal ini digunakan untuk menjalankan **generator transaksi** yang mensimulasikan aliran data masuk ke pipeline.
-
-#### Terminal 3 — Dashboard
-
+### B. Use Case 2: Smart Transportation (Decision-Oriented)
+1. Jalankan generator trip:
 ```bash
-python -m streamlit run dashboard/dashboard_streamlit.py
+python scripts/transportation/trip_generator.py
+```
+2. Jalankan streaming trip layer:
+```bash
+python scripts/transportation/streaming_trip_layer.py
+```
+3. Jalankan dashboard transportation:
+```bash
+streamlit run dashboard/dashboard_transportation.py
 ```
 
-Terminal ini digunakan untuk menjalankan **dashboard Streamlit** yang akan menampilkan hasil pemrosesan data secara real-time.
+## Output yang Dihasilkan
+- **Batch Output**
+  - `data/clean/parquet/`
+  - `data/curated/category_revenue/`
+  - `data/curated/top_products/`
+  - `data/curated/avg_transaction/`
+- **Serving Layer**
+  - `data/serving/total_revenue`
+  - `data/serving/top_products`
+  - `data/serving/category_revenue`
+  - `data/serving/avg_transaction`
+  - `data/serving/stream`
+  - `data/serving/transportation`
+- **Log**
+  - `logs/batch_pipeline.log`
 
-### Membuka Dashboard
+## Konteks Decision-Oriented System
+Sistem ini dirancang untuk mendukung keputusan cepat berbasis data:
+- KPI membantu melihat performa bisnis/operasional secara real-time.
+- Alert membantu mendeteksi kondisi kritis (misalnya lonjakan trafik/fare tinggi).
+- Dashboard menjadi antarmuka keputusan untuk tim operasional/manajemen.
 
-Setelah ketiga terminal berjalan, buka browser lalu akses:
+## Dokumentasi Visual
+Contoh hasil implementasi tersedia di folder `screenshots/`, seperti:
+- `spark_streaming.png`
+- `dashboard1.png`, `dashboard2.png`, `dashboard3.png`, `dashboard4.png`
+- `data_serving.png`
+- `generator_berjalan.png`
 
+## Troubleshooting Singkat
+- Jika Spark gagal start, cek Java:
 ```bash
-http://localhost:8501
+java -version
 ```
+- Jika dashboard kosong, pastikan job generator dan streaming sudah berjalan.
+- Jika pembacaan parquet bermasalah, pastikan `pyarrow` sudah terinstall.
 
-## Expected Output
+---
+Praktikum ini menunjukkan implementasi Big Data Analytics yang tidak hanya melakukan pemrosesan data, tetapi juga menghadirkan insight operasional untuk pengambilan keputusan (decision-oriented).
 
-Setelah pipeline berhasil dijalankan, beberapa output yang diharapkan akan terbentuk di dalam direktori **serving layer**, antara lain:
-
-```bash
-data/serving/total_revenue/
-data/serving/top_products/
-data/serving/category_revenue/
-data/serving/avg_transaction/
-```
-
-Selain itu, dashboard **Streamlit** akan menampilkan visualisasi **real-time** berdasarkan data terbaru yang tersedia dari hasil pipeline streaming.
